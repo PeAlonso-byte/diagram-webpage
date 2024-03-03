@@ -1,3 +1,4 @@
+import { LoginLink, RegisterLink } from '@kinde-oss/kinde-auth-nextjs'
 import Image from 'next/image'
 import React from 'react'
 
@@ -5,7 +6,7 @@ function Header() {
   return (
     <header className="bg-black">
   <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
-    <Image src='/logo-1.png' alt='logo'
+    <Image src='/logo.svg' alt='logo'
     width={100}
     height={100}
     />
@@ -44,9 +45,7 @@ function Header() {
             text-white transition "
            
           >
-            <a>
-                Login
-            </a>
+            <LoginLink postLoginRedirectURL="/dashboard"> Login</LoginLink>
           </div>
 
           <div
@@ -55,10 +54,8 @@ function Header() {
              text-black transition
               hover:text-slate-800 sm:block"
            
-          > 
-          <a>
-            Register
-          </a>
+          >
+          <RegisterLink>Register</RegisterLink>  
           </div>
         </div>
 
