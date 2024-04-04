@@ -3,10 +3,30 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { useMutation } from 'convex/react'
+import { api } from '@/convex/_generated/api'
+import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs'
+import { toast } from 'sonner'
+import { useRouter } from 'next/navigation'
 
 function CreateTeam() {
 
   const [teamName, setTeamName] = useState('')
+  const createTeam=useMutation(api.teams.createTeam)
+  const {user}:any = useKindeBrowserClient()
+  const router=useRouter()
+  const createNewTeam = () => {
+    createTeam({
+      teamName:teamName,
+      createdBy:user?.email
+    }).then (resp => {
+      console.log(resp)
+      if (resp) {
+        router.push('/dashboard')
+        toast('Team' + teamName + 'created successfully!')
+      }
+    })
+  }
   return (
     <div className='px-6 md:px-16 my-16'>
       <Image src='/logo-black.png' alt="logo" width={200} height={200}/>
@@ -20,6 +40,7 @@ function CreateTeam() {
         </div>
         <Button className='bg-blue-500 mt-9 w-[30%] hover:bg-blue-600'
         disabled={!(teamName&&teamName?.length>0)}
+        onClick={createNewTeam}
         >Create Team</Button>
       
       </div>
