@@ -1,8 +1,21 @@
 import { Button } from '@/components/ui/button'
 import { Archive, Flag, Github } from 'lucide-react'
-import React from 'react'
+import React, { useState } from 'react'
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Input } from '@/components/ui/input'
 
-function SideNavBottomSection() {
+function SideNavBottomSection({onFileCreate}:any) {
+
+  const [fileInput, setFileInput] = useState('')
   const menuList = [
     {
       id:1,
@@ -32,9 +45,33 @@ function SideNavBottomSection() {
         </h2>
       ))}
 
-      <Button className='w-full bg-blue-600 hover:bg-blue-700 justify-start mt-3'>
-        New File
-      </Button>
+      <Dialog>
+        <DialogTrigger className='w-full'>
+          <Button className='w-full bg-blue-600 hover:bg-blue-700 justify-start mt-3'>
+            New File
+          </Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Create New File</DialogTitle>
+            <DialogDescription>
+              <Input placeholder='Enter File Name' className='mt-3'
+              onChange={(e) => setFileInput(e.target.value)}/>
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button type='button' 
+              className='bg-blue-600 hover:bg-blue-700'
+              disabled={!(fileInput&&fileInput.length>2)}
+              onClick={() => onFileCreate(fileInput)}>
+                Create
+              </Button>
+            </DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      
 
       <div className='h-4 w-full bg-gray-200 rounded-full mt-5'>
         <div className='h-4 w-[100%] bg-red-600 rounded-full'>
