@@ -6,6 +6,7 @@ import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs'
 import SideNavBottomSection from './SideNavBottomSection'
 import { useMutation } from 'convex/react'
 import { api } from '@/convex/_generated/api'
+import { toast } from 'sonner'
 
 function SideNav() {
   const {user}:any = useKindeBrowserClient()
@@ -17,6 +18,12 @@ function SideNav() {
       fileName:fileName,
       teamId:activeTeam?._id,
       createdBy: user?.email
+    }).then(resp=>{
+      if (resp) {
+        toast('File created successfully!')
+      }
+    }, (e) => {
+      toast('Error while creating new File')
     })
   }
   return (
