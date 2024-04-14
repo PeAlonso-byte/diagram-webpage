@@ -79,7 +79,7 @@ function SideNavBottomSection({onFileCreate,totalFiles}:any) {
       
       {/* Progress Bar  */}
       <div className='h-4 w-full bg-gray-200 rounded-full mt-5'>
-          <div className={`h-4  bg-blue-600 rounded-full`}
+          <div className={`h-4  ${totalFiles == 5 ? 'bg-red-600' : 'bg-blue-600'} rounded-full`}
           style={{ width: `${(totalFiles/5)*100}%` }}
          >
           </div>
